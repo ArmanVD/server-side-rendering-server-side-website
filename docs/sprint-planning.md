@@ -66,11 +66,14 @@ Maak een issue aan met de titel 'Prototype naar HTML', voeg Wireflow schetsen me
 
 Volg hiervoor de instructies over 'wireflow schetsen' van de workshops Filteren en sorteren uit Sprint 7.
 
+
 ### One Column Layout
+Als het is gelukt om met de data HTML te renderen in Liquid, kan je beginnen met CSS!
+
 Maak een issue aan met de titel 'One Column Layout', voeg de interface inventory, de styleguide en uitleg van CSS strategie toe en koppel de commits van de CSS die je gaat coderen aan het issue.
 Voeg de issue toe aan het project board met een *tijdspad*.
 
-Volg hiervoor de instructies van de workshops Styleguide en Stylesheet uit Sprint 4. Dit keer ga je ga je dit individueel doen.
+Volg hiervoor de instructies van de workshops Styleguide en Stylesheet uit Sprint 4. Dit keer ga je dit individueel doen.
 
 Als je voor alle content nette HTML hebt gemaakt en getest, ga dan verder met de **One Column Layout** in CSS. Zorg er eerst voor dat alles onder elkaar staat en voldoet aan de huisstijl voordat je de website responsive maakt met media queries en meer complexere layouts en interactie gaat bouwen.
 
