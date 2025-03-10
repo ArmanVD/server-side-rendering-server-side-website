@@ -1,34 +1,35 @@
-{% render 'partials/head.liquid' %}
+{% render 'partials/head.liquid'
+  , radiostation: "Veronica" %}
 <body>
-  {% render 'partials/header.liquid' %}
+  {% render 'partials/header.liquid'
+    , radiostation: "Veronica" %}
   <main>
     <article>
       <h2>Alle radiostations binnen handbereik</h2>
       <h2>Kies je favoriet en luister direct!</h2>
     </article>
     <div class="radiostations">
-      <a href="">
+      <a href="/radio-veronica">
         <div class="radio-veronica">
-          <img src="/assets/radio-veronica-logo.svg" alt="">
+          {% render 'svg/veronica.liquid' %}
         </div>
       </a>
-      <a href="">
+      <a href="/100-nl">
         <div class="100-nl">
-          <img src="/assets/100-nl-logo.svg" alt="">
+          <img src="/assets/100-nl-logo.svg" alt="100% NL Logo">
         </div>
       </a>
-      <a href="">
+      <a href="/slam-fm">
         <div class="slam-fm">
-          <img src="/assets/slam-fm-logo.svg" alt="">
+          <img src="/assets/slam-fm-logo.svg" alt="Slam FM Logo">
         </div>
       </a>
-      <a href="">
+      <a href="/sublime">
         <div class="sublime">
-          <img src="/assets/sublime-logo.svg" alt="">
+          <img src="/assets/sublime-logo.svg" alt="Sublime Logo">
         </div>
       </a>
     </div>
   </main>
   {% render 'partials/foot.liquid' %}
-
 </body>
