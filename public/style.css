@@ -13,6 +13,9 @@
   --veronica: #0091ff;
   --100-nl: #f08e04;
   --slam-fm: #e50169;
+  --sublime: #98bf27;
+
+  --activehovercolor: var(--mediahuis);
 
   /* Fonts */
   --main-font: "Montserrat", sans-serif;
@@ -52,16 +55,70 @@
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
 * {
   font-family: var(--main-font);
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  list-style: none;
+  text-decoration: none;
 }
 
-.card-veronica {
-  svg {
-    fill: var(--veronica);
+html {
+  width: 100svw;
+  max-width: 100svw;
+  height: 100svh;
+  background-color: light-dark(var(--bg-light), var(--bg-dark));
+  color: light-dark(var(--text-light), var(--text-dark));
+}
+
+a {
+  color: inherit;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  height: 6svh;
+  width: 100svw;
+  background-color: var(--activehovercolor);
+  overflow: clip;
+
+  nav {
+    width: 100%;
+    height: 100%;
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 0 20px;
+      gap: 20px;
+
+      li.logo {
+        margin-inline-end: 2em;
+      }
+
+      li.zoeken {
+        margin-inline-start: auto;
+      }
+
+      li {
+        color: var(--text-light);
+
+        button {
+          background-color: transparent;
+          color: inherit;
+          border: none;
+        }
+      }
+    }
   }
 }
 
@@ -74,5 +131,27 @@
   svg {
     width: 340px;
     height: 90px;
+  }
+
+  .card-veronica {
+    svg {
+      fill: var(--veronica);
+    }
+  }
+}
+
+.wavesvg {
+  position: absolute;
+  bottom: 0;
+  width: 100svw;
+  overflow: clip;
+  svg {
+    fill: var(--activehovercolor);
+    height: 33svh;
+
+    @media (min-width: 1024px) {
+      width: 100svw;
+      height: auto;
+    }
   }
 }
