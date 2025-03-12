@@ -9,6 +9,9 @@
   --text-light: #1e1e1e;
   --text-dark: #f0f0f0;
 
+  --transparent-light: #1e1e1e40;
+  --transparent-dark: #f0f0f040;
+
   --mediahuis: #ff7c1a;
   --veronica: #0091ff;
   --100-nl: #f08e04;
@@ -74,6 +77,7 @@ html {
   height: 100svh;
   background-color: light-dark(var(--bg-light), var(--bg-dark));
   color: light-dark(var(--text-light), var(--text-dark));
+  overflow: clip;
 }
 
 a {
@@ -122,15 +126,48 @@ header {
   }
 }
 
-.radiostations {
-  img {
-    width: 340px;
-    height: 90px;
-  }
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  svg {
-    width: 340px;
-    height: 90px;
+footer {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 1em;
+  width: 100svw;
+  color: var(--text-light);
+}
+
+.radiostations {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+  width: 90svw;
+  max-width: 1000px;
+  z-index: 1;
+
+  a {
+    width: 100%;
+    height: 110px;
+    background-color: light-dark(var(--transparent-light), var(--transparent-dark));
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1em;
+
+    div {
+      display: flex;
+      height: 100%;
+      width: 100%;
+    }
+
+    img,
+    svg {
+      width: 100%;
+    }
   }
 
   .card-veronica {
@@ -141,10 +178,10 @@ header {
 }
 
 .wavesvg {
-  position: absolute;
-  bottom: 0;
+  margin-block-start: auto;
   width: 100svw;
   overflow: clip;
+
   svg {
     fill: var(--activehovercolor);
     height: 33svh;

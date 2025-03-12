@@ -23,6 +23,7 @@
   "homepage": "https://github.com/fdnd-task/server-side-rendering#readme",
   "dependencies": {
     "express": "^5.0.1",
+    "gsap": "^3.12.7",
     "liquidjs": "^10.21.0"
   }
 }
