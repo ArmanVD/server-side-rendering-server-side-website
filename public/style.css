@@ -1,3 +1,35 @@
+:root {
+  color-scheme: light dark;
+
+  /* Colors */
+  --bg-light: #f0f0f0;
+  --bg-dark: #1e1e1e;
+
+  --text-light: #1e1e1e;
+  --text-dark: #f0f0f0;
+
+  --mediahuis: #ff7c1a;
+  --veronica: #0091ff;
+  --100-nl: #f08e04;
+  --slam-fm: #e50169;
+
+  /* Fonts */
+  --main-font: "Montserrat", sans-serif;
+
+  /* Typography */
+  --font-size-1: 36px;
+  --font-size-2: 28px;
+  --font-size-3: 20px;
+
+  --font-size-normal: 16px;
+  --font-size-small: 14px;
+
+  --font-weight-black: 900;
+  --font-weight-bold: 700;
+  --font-weight-semi-bold: 600;
+  --font-weight-regular: 400;
+}
+
 /* latin-ext */
 @font-face {
   font-family: "Montserrat";
@@ -20,5 +52,8 @@
 }
 
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--main-font);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
