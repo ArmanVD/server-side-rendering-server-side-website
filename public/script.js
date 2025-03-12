@@ -3,7 +3,7 @@ document.querySelectorAll("a[class^='card-']").forEach((card) => {
     const newColor = getComputedStyle(card)
       .getPropertyValue(`--${card.classList[0].replace("card-", "")}`)
       .trim();
-    animateCSSVariable("--activehovercolor", newColor, 350); // Smooth 1s transition
+    animateCSSVariable("--activehovercolor", newColor, 350);
   });
 
   card.addEventListener("mouseleave", () => {
@@ -12,7 +12,6 @@ document.querySelectorAll("a[class^='card-']").forEach((card) => {
   });
 });
 
-// Function to animate CSS variables smoothly
 function animateCSSVariable(variable, endColor, duration) {
   let startColor = getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
 
@@ -21,7 +20,6 @@ function animateCSSVariable(variable, endColor, duration) {
     return;
   }
 
-  // Convert colors to RGB format
   const startRGB = convertColorToRGB(startColor);
   const endRGB = convertColorToRGB(endColor);
 
@@ -29,12 +27,10 @@ function animateCSSVariable(variable, endColor, duration) {
 
   function step(timestamp) {
     if (!startTime) startTime = timestamp;
-    const progress = Math.min((timestamp - startTime) / duration, 1); // Normalize progress (0-1)
+    const progress = Math.min((timestamp - startTime) / duration, 1);
 
-    // Interpolate each color channel (R, G, B)
     const currentRGB = startRGB.map((start, i) => Math.round(start + (endRGB[i] - start) * progress));
 
-    // Apply the interpolated color to the CSS variable
     document.documentElement.style.setProperty(variable, `rgb(${currentRGB.join(", ")})`);
 
     if (progress < 1) {
@@ -45,13 +41,11 @@ function animateCSSVariable(variable, endColor, duration) {
   requestAnimationFrame(step);
 }
 
-// Function to convert color to RGB format
 function convertColorToRGB(color) {
   if (color.startsWith("rgb")) {
-    return color.match(/\d+/g).map(Number); // Extract RGB values
+    return color.match(/\d+/g).map(Number);
   }
 
-  // Create a temporary element to convert the color
   const temp = document.createElement("div");
   temp.style.color = color;
   document.body.appendChild(temp);
