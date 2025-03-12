@@ -1,4 +1,5 @@
 :root {
+  /* Color scheme */
   color-scheme: light dark;
 
   /* Colors */
@@ -56,4 +57,22 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.card-veronica {
+  svg {
+    fill: var(--veronica);
+  }
+}
+
+.radiostations {
+  img {
+    width: 340px;
+    height: 90px;
+  }
+
+  svg {
+    width: 340px;
+    height: 90px;
+  }
 }
