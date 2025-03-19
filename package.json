@@ -24,6 +24,7 @@
   "dependencies": {
     "express": "^5.0.1",
     "gsap": "^3.12.7",
-    "liquidjs": "^10.21.0"
+    "liquidjs": "^10.21.0",
+    "paper": "^0.12.18"
   }
 }
