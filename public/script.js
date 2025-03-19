@@ -1,3 +1,5 @@
+import gsap from "gsap";
+
 document.querySelectorAll("a[class^='card-']").forEach((card) => {
   card.addEventListener("mouseenter", () => {
     const newColor = getComputedStyle(card)
