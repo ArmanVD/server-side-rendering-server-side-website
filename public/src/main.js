@@ -1,5 +1,3 @@
-import gsap from "gsap";
-
 document.querySelectorAll("a[class^='card-']").forEach((card) => {
   card.addEventListener("mouseenter", () => {
     const newColor = getComputedStyle(card)
@@ -24,13 +22,11 @@ function animateCSSVariable(variable, endColor, duration) {
 
   const startRGB = convertColorToRGB(startColor);
   const endRGB = convertColorToRGB(endColor);
-
   let startTime = null;
 
   function step(timestamp) {
     if (!startTime) startTime = timestamp;
     const progress = Math.min((timestamp - startTime) / duration, 1);
-
     const currentRGB = startRGB.map((start, i) => Math.round(start + (endRGB[i] - start) * progress));
 
     document.documentElement.style.setProperty(variable, `rgb(${currentRGB.join(", ")})`);
@@ -51,19 +47,71 @@ function convertColorToRGB(color) {
   const temp = document.createElement("div");
   temp.style.color = color;
   document.body.appendChild(temp);
-
   const computedColor = getComputedStyle(temp).color;
   document.body.removeChild(temp);
-
   return computedColor.match(/\d+/g).map(Number);
 }
 
-gsap.to("#wave", {
-  duration: 4,
-  attr: {
-    d: "M0 120L41 150C82 180 165 260 247 280C329 300 411 270 494 200C576 130 658 40 741 40C823 40 905 130 987 130C1070 130 1152 40 1234 30C1317 20 1399 100 1481 120C1563 140 1646 110 1687 90L1728 70V372H1687C1646 372 1563 372 1481 372C1399 372 1317 372 1234 372C1152 372 1070 372 987 372C905 372 823 372 741 372C658 372 576 372 494 372C411 372 329 372 247 372C165 372 82 372 41 372H0V120Z",
-  },
-  repeat: -1,
-  yoyo: true,
-  ease: "power1.inOut",
-});
+import paper from "paper";
+
+// ✅ Paper.js Setup
+paper.setup(document.getElementById("waveCanvas"));
+
+// ✅ Define variables
+let width, height, center;
+const points = 10;
+let smooth = true;
+let path = new paper.Path();
+let mousePos = paper.view.center.divide(2);
+let pathHeight = mousePos.y;
+
+// ✅ Set fill color for the wave
+path.fillColor = "black";
+
+function initializePath() {
+  center = paper.view.center;
+  width = paper.view.size.width;
+  height = paper.view.size.height / 2;
+  path.segments = [];
+
+  path.add(paper.view.bounds.bottomLeft);
+  for (let i = 1; i < points; i++) {
+    let point = new paper.Point((width / points) * i, center.y);
+    path.add(point);
+  }
+  path.add(paper.view.bounds.bottomRight);
+}
+
+initializePath();
+
+// ✅ Animation loop
+paper.view.onFrame = (event) => {
+  pathHeight += (center.y - mousePos.y - pathHeight) / 10;
+  for (let i = 1; i < points; i++) {
+    let sinSeed = event.count + (i + (i % 10)) * 100;
+    let sinHeight = Math.sin(sinSeed / 200) * pathHeight;
+    let yPos = Math.sin(sinSeed / 100) * sinHeight + height;
+    path.segments[i].point.y = yPos;
+  }
+  if (smooth) path.smooth({ type: "continuous" });
+};
+
+paper.view.onMouseMove = (event) => {
+  mousePos = event.point;
+};
+
+paper.view.onMouseDown = () => {
+  smooth = !smooth;
+  if (!smooth) {
+    for (let i = 0; i < path.segments.length; i++) {
+      let segment = path.segments[i];
+      segment.handleIn = segment.handleOut = null;
+    }
+  }
+};
+
+paper.view.onResize = () => {
+  initializePath();
+};
+
+paper.view.play();

@@ -8,7 +8,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "vite",
+    "build": "vite build"
   },
   "keywords": [
     "node",
@@ -22,9 +24,14 @@
   },
   "homepage": "https://github.com/fdnd-task/server-side-rendering#readme",
   "dependencies": {
+    "cairo": "^0.1.0-alpha.3",
     "express": "^5.0.1",
     "gsap": "^3.12.7",
     "liquidjs": "^10.21.0",
+    "pango": "^0.0.3",
     "paper": "^0.12.18"
+  },
+  "devDependencies": {
+    "vite": "^6.2.2"
   }
 }
