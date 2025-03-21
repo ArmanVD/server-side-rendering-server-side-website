@@ -1,68 +1,40 @@
-// Importeer het npm package Express (uit de door npm aangemaakte node_modules map)
-// Deze package is geïnstalleerd via `npm install`, en staat als 'dependency' in package.json
 import express from "express";
-
-// Importeer de Liquid package (ook als dependency via npm geïnstalleerd)
 import { Liquid } from "liquidjs";
+import { createServer as createViteServer } from "vite";
 
-console.log("Hieronder moet je waarschijnlijk nog wat veranderen");
-// Doe een fetch naar de data die je nodig hebt
-// const apiResponse = await fetch('...')
-
-// Lees van de response van die fetch het JSON object in, waar we iets mee kunnen doen
-// const apiResponseJSON = await apiResponse.json()
-
-// Controleer eventueel de data in je console
-// (Let op: dit is _niet_ de console van je browser, maar van NodeJS, in je terminal)
-// console.log(apiResponseJSON)
-
-// Maak een nieuwe Express applicatie aan, waarin we de server configureren
 const app = express();
 
-// Maak werken met data uit formulieren iets prettiger
-app.use(express.urlencoded({ extended: true }));
+async function startServer() {
+  // const vite = await createViteServer({
+  //   server: { middlewareMode: "html" },
+  // });
 
-// Gebruik de map 'public' voor statische bestanden (resources zoals CSS, JavaScript, afbeeldingen en fonts)
-// Bestanden in deze map kunnen dus door de browser gebruikt worden
-app.use(express.static("public"));
+  // app.use(vite.middlewares);
 
-// Stel Liquid in als 'view engine'
-const engine = new Liquid();
-app.engine("liquid", engine.express());
+  app.use(express.static("public"));
 
-// Stel de map met Liquid templates in
-// Let op: de browser kan deze bestanden niet rechtstreeks laden (zoals voorheen met HTML bestanden)
-app.set("views", "./views");
+  const engine = new Liquid();
+  app.engine("liquid", engine.express());
+  app.set("views", "./views");
+  app.set("view engine", "liquid");
 
-// Maak een GET route voor de index (meestal doe je dit in de root, als /)
-app.get("/", async function (request, response) {
-  // Render index.liquid uit de Views map
-  // Geef hier eventueel data aan mee
-  response.render("index.liquid");
-});
+  app.get("/", async (req, res) => {
+    console.log("🟢 Received GET request at /");
+    res.render("index.liquid");
+  });
 
-app.get("/radio-veronica", async function (request, response) {
-  response.render("radio-veronica.liquid");
-});
+  app.get("/radio-veronica", async (req, res) => {
+    res.render("radio-veronica.liquid");
+  });
 
-// Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
-// Hier doen we nu nog niets mee, maar je kunt er mee spelen als je wilt
-app.post("/", async function (request, response) {
-  // Je zou hier data kunnen opslaan, of veranderen, of wat je maar wilt
-  // Er is nog geen afhandeling van een POST, dus stuur de bezoeker terug naar /
-  response.redirect(303, "/");
-});
+  app.use((req, res) => {
+    res.status(404).render("404.liquid");
+  });
 
-// Stel het poortnummer in waar Express op moet gaan luisteren
-// Lokaal is dit poort 8000, als dit ergens gehost wordt, is het waarschijnlijk poort 80
-app.set("port", process.env.PORT || 8000);
+  const PORT = 8000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+}
 
-// Start Express op, haal daarbij het zojuist ingestelde poortnummer op
-app.listen(app.get("port"), function () {
-  // Toon een bericht in de console en geef het poortnummer door
-  console.log(`Application started on http://localhost:${app.get("port")}`);
-});
-
-app.use((request, response, next) => {
-  response.status(404).render("404.liquid");
-});
+startServer();

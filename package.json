@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "vite",
+    "serve": "node server.js",
     "build": "vite build"
   },
   "keywords": [
